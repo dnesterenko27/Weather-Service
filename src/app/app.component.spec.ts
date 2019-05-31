@@ -1,12 +1,28 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {async, TestBed} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material';
+import {WeatherRetrieverService} from './weather-retriever.service';
+import {API_ICON_URL, API_KEY, API_URL, OW_API_ICON_URL, OW_API_KEY, OW_API_URL} from './app.config';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      imports: [
+        BrowserModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatInputModule,
       ],
+      declarations: [AppComponent],
+      providers: [WeatherRetrieverService,
+        {provide: OW_API_KEY, useValue: API_KEY},
+        {provide: OW_API_URL, useValue: API_URL},
+        {provide: OW_API_ICON_URL, useValue: API_ICON_URL}],
     }).compileComponents();
   }));
 
@@ -14,18 +30,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'weatherService'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('weatherService');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to weatherService!');
   });
 });

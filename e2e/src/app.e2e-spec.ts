@@ -1,16 +1,17 @@
-import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import {AppPage} from './app.po';
+import {browser, logging} from 'protractor';
 
-describe('workspace-project App', () => {
+describe('Weather app', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
+    page.navigateTo();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to weatherService!');
+  it('should show city name after load', () => {
+    browser.sleep(2000);
+    expect(page.getCityName().getText()).toContain(('Kiev'));
   });
 
   afterEach(async () => {
